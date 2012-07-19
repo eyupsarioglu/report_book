@@ -1,0 +1,19 @@
+<%= simple_form_for(@user_edit, :validate => true, :html => {:class => 'form-vertical validate' }) do |f| %>
+    <%= f.error_notification %>
+    <div class="form-inputs">
+      <%= f.input :name, :required => true, :autofocus => true %>
+      <%= f.input :surname, :required => true %>
+      <%= f.input :university, :required => true %>
+      <%= f.input :academic_unit, :required => true %>
+      <%= f.input :department, :required => true %>
+      <%= f.input :email, :required => true %>
+      <%= f.collection_radio_buttons :role, [['student', 'User'] ,['admin', 'Admin']], :first, :last %>
+    </div>
+    <div class="form-actions">
+      <%= f.button :submit, "Update" %>
+    </div>
+<% end %>
+
+<h3>Cancel this account</h3>
+
+<p>?? <%= link_to "Cancel account", user_path, :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>

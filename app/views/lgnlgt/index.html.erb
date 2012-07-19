@@ -1,0 +1,13 @@
+<div style="width: 300px; padding-left: 500px; padding-top: 10px;" >
+  <% if user_signed_in? %>
+      <%= link_to("#{current_user.name}  #{current_user.surname}",  user_path(current_user.id)) %>     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <%= link_to("Log out",  destroy_user_session_path, method: :delete) %>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <% if current_user.role == "admin" %>
+        <%= link_to("My Probations",  probations_path(:us_id => current_user.id)) %>
+      <% end %>
+  <% else %>
+      <%= link_to("Log in", new_user_session_path) %>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <%= link_to("Register", new_user_registration_path) %>
+  <% end %>
+
+</div>

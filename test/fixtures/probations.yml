@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  firm_name: MyString
+  probation_name: MyString
+  probation_type: MyString
+  started_at: 2012-06-27
+  finished_at: 2012-06-27
+
+two:
+  firm_name: MyString
+  probation_name: MyString
+  probation_type: MyString
+  started_at: 2012-06-27
+  finished_at: 2012-06-27

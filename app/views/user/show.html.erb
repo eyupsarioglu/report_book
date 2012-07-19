@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+<h2>Profil</h2>
+
+<table class="#">
+  <tr class="#">
+    <th>Name</th>
+    <td><%=  session[:user].name%></td>
+  <tr>
+    <th>Surname</th>
+    <td><%=session[:user].surname%></td>
+  </tr>
+  <tr>
+    <th>University</th>
+    <td><%=session[:user].university%></td>
+  </tr>
+  <tr>
+    <th>Academic Unit</th>
+    <td><%=session[:user].academic_unit%></td>
+  </tr>
+  <tr>
+    <th>Department</th>
+    <td><%=session[:user].department%></td>
+  </tr>
+  <tr>
+    <th>Email</th>
+    <td><%=session[:user].email%></td>
+  </tr>
+</table>
+<% if session[:user].id == current_user.id %>
+    <%= link_to("Password Change",   edit_user_password_path) %>
+    <%= link_to("Edit profil",  edit_user_registration_path) %>
+<% else %>
+<%= link_to("Edit profil",   edit_user_path) %>
+<% end %>
+
+

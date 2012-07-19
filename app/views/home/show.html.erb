@@ -1,0 +1,32 @@
+<table >
+  <tr>
+    <th>Subject</th>
+    <th>Content</th>
+    <th>Create Date</th>
+
+
+  </tr>
+  <tr>
+    <td><%= @daily.subject %></td>
+    <td><%= @daily.content %></td>
+    <td><%= @daily.created_at.to_date %></td>
+  </tr>
+</table>
+
+<hr/>
+
+
+<h3>Comments</h3>
+<table class="#">
+  <tr class="#">
+    <th>Comment</th>
+    <th>Created at</th>
+  </tr>
+  <% @comment.each do |comment| %>
+      <tr class="#">
+        <td><%= comment.comment %></td>
+        <td><%= comment.created_at.strftime("%B  %A  %H:%M:%S")  %></td>
+      </tr>
+  <% end %>
+</table>
+<%= will_paginate @comment, :renderer => BootstrapPagination::Rails %>

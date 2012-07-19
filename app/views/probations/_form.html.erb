@@ -1,0 +1,15 @@
+<%= simple_form_for(@probation, :validate => true, :html => {:class => 'form-vertical validate' }) do |f| %>
+    <%= f.error_notification %>
+    <div class="form-inputs">
+      <%= f.input :probation_name, :required => true %>
+      <%= f.input :firm_name, :required => true %>
+      <%= f.input :probation_type, :required => true %>
+      <% if @probation.id == nil %>
+        <%= f.input :started_at, :required => false, :input_html => { :style => "width: 70px;"}  %>
+        <%= f.input :finished_at, :required => false, :input_html => { :style => "width: 70px;"} %>
+      <% end %>
+    </div>
+    <div class="form-actions">
+      <%= f.submit :submit %>
+    </div>
+<% end %>

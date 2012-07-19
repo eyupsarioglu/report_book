@@ -1,0 +1,84 @@
+  <h2>My Probation</h2>
+
+      <%= link_to("Add New Probation", new_probation_path, :class => '') %>
+
+
+  <div><%= pluralize(@probation.size, 'probation') %> found</div>
+  <table class="#">
+    <tr class="#">
+      <th>Probation Name</th>
+      <th>Firm Name</th>
+      <th>Probation Type</th>
+      <th>Start Date</th>
+      <th>Finish Date</th>
+      <th>Daily Count</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+    </tr>
+    <% @probation.each do |probation| %>
+        <tr class="#">
+          <td><%= probation.probation_name %></td>
+          <td><%= probation.firm_name %></td>
+          <td><%= probation.probation_type %></td>
+          <td><%= probation.started_at %></td>
+          <td><%= probation.finished_at %></td>
+          <td><%= probation.daily.size%></td>
+          <td>
+            <%= link_to("Show", probation, :class => '#') %>
+          </td>
+          <td>
+            <%= link_to("Edit", edit_probation_path(probation), :class => '#') %>
+          </td>
+          <td>
+            <%= link_to 'Destroy', probation, confirm: 'Are you sure?', method: :delete %>
+          </td>
+          <td>
+            <%= link_to 'Pdf', probation_path(probation, :format => 'pdf')%>
+          </td>
+        </tr>
+    <% end %>
+  </table>
+  <%= will_paginate @probation, :param_name => 'page_1', :renderer => BootstrapPagination::Rails %>
+
+  <hr/>
+  <h2>Other Probation</h2>
+  <table class="#">
+    <tr class="#">
+      <th>Probation Name</th>
+      <th>Firm Name</th>
+      <th>Probation Type</th>
+      <th>Start Date</th>
+      <th>Finish Date</th>
+      <th>Daily Count</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+
+
+    </tr>
+    <% @probation_all.each do |probation| %>
+        <tr class="#">
+          <td><%= probation.probation_name %></td>
+          <td><%= probation.firm_name %></td>
+          <td><%= probation.probation_type %></td>
+          <td><%= probation.started_at %></td>
+          <td><%= probation.finished_at %></td>
+          <td><% if current_user.role == "admin" %>
+            <%= probation.daily.where(:status => true).size %>
+              <% else %>
+                <%= probation.daily.all.size  %>
+              <% end %>  </td>
+          <td>
+            <%= link_to("Show", probation, :class => '#') %>
+          </td>
+          <td>
+            <%= link_to 'Pdf', probation_path(probation, :format => 'pdf')%>
+          </td>
+         </tr>
+    <% end %>
+  </table>
+  <%= will_paginate @probation_all, :param_name => 'page_2', :renderer => BootstrapPagination::Rails %>
+
+
+

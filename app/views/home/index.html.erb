@@ -1,0 +1,28 @@
+  <table width="100%" >
+    <tr>
+      <th>Subject</th>
+      <th>Content</th>
+      <th>Create Date</th>
+      <th>Comment Count</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+
+
+    </tr>
+    <% @daily.each do |daily| %>
+        <tr>
+          <td><%= daily.subject %></td>
+          <td><%= daily.content %></td>
+          <td><%= daily.created_at.to_date %></td>
+          <td><%= daily.comment.size  %></td>
+          <td><%= link_to("Show", home_path(daily)) %></td>
+          <td><%= link_to("Pdf", home_path(daily, :format => 'pdf')) %></td>
+        </tr>
+    <% end %>
+  </table>
+  <%= will_paginate @daily, :renderer => BootstrapPagination::Rails %>
+
+
+
+
+

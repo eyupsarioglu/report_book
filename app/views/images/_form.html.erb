@@ -1,0 +1,15 @@
+<%= simple_form_for([@probation, @probation.image.build], :validate => true, :html => {:class => 'form-inline validate' }) do |f| %>
+    <%= f.error_notification %>
+    <div class="form-inputs">
+       <table>
+         <tr>
+           <td>
+             <%= f.input :path, :as => :image_preview, :label => false, :input_html => {:preview_version => :thumb} %>
+           </td>
+           <td>
+             <%= f.submit "Upload"  %>
+           </td>
+         </tr>
+       </table>
+     </div>
+<% end %>

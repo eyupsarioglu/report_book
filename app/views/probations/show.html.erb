@@ -1,0 +1,113 @@
+
+  <p id="notice"><%= notice %></p>
+
+  <h2>Show Probation</h2>
+  <table width="80%"  >
+    <tr>
+      <th>Probation Name</th>
+      <th>Firm Name</th>
+      <th>Probation Type</th>
+      <th>Start Date</th>
+      <th>Finish Date</th>
+
+    </tr>
+    <tr align="center">
+      <td><%= @probation.probation_name %></td>
+      <td><%= @probation.firm_name %></td>
+      <td><%= @probation.probation_type %></td>
+      <td><%= @probation.started_at %></td>
+      <td><%= @probation.finished_at %></td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <br/>
+        <%= link_to 'Back', probations_path %>
+      </td>
+      <td colspan="2">
+        <br/>
+        <% if @probation.image.size < 20 and @probation.user_id == session[:user].id  %>
+            <%= render 'images/form'  %>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+
+
+<hr/>
+<div >
+ <% if  @probation.user_id == session[:user].id %>
+  <table width="100%">
+
+     <%@temp = 0 %>
+  <% @probation.image.each do |im| %>
+        <% if im.path == nil %>
+            <%break%>
+        <% end %>
+      <% if @temp % 10 == 0 %>
+            <tr>
+      <% end %>
+      <td align="center">
+
+        <%= image_tag("#{im.path}", :alt => "", :size => "100x100" ) %>  <br/>
+        <%= link_to 'X', probation_image_path(@probation, im), confirm: 'Are you sure?', method: :delete %>
+
+
+      </td>
+        <% @temp += 1 %>
+
+  <% end %>
+      </tr>
+  </table>
+  <% end %>
+</div>
+<hr/>
+
+  <h3>Dailies</h3>
+  <% if  @probation.user_id == session[:user].id %>
+    <%= link_to("Add New Daily", new_probation_daily_path(@probation), :class => '') %>
+      <% end %>
+  <div><%= pluralize(@daily.size, 'daily') %> found</div>
+
+  <table class="#">
+    <tr class="#">
+      <th>Subject</th>
+      <th>Status</th>
+      <th>Create Date</th>
+      <th>Comment Count</th>
+
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+    </tr>
+    <% @daily.each do |daily| %>
+        <tr class="#">
+          <td><%= daily.subject %></td>
+          <td><%= daily.status ? 'Public' : 'Private' %></td>
+          <td><%= daily.created_at.to_date %></td>
+          <td><%= daily.comment.size%></td>
+
+          <td>
+            <%= link_to("Show", probation_daily_path(@probation, daily), :class => '#') %>
+          </td>
+          <td>
+            <% if  @probation.user_id == session[:user].id %>
+            <%= link_to("Edit", edit_probation_daily_path(@probation, daily), :class => '#') %>
+                <% end %>
+          </td>
+          <td>
+            <% if  @probation.user_id == session[:user].id %>
+            <%= link_to 'Destroy', probation_daily_path(@probation, daily), confirm: 'Are you sure?', method: :delete %>
+                <% end %>
+          </td>
+          <td>
+            <% if  @probation.user_id == session[:user].id or daily.status == true %>
+                <%= link_to 'Pdf', probation_daily_path(@probation, daily, :format => 'pdf')%>
+            <% end %>
+          </td>
+        </tr>
+
+    <% end %>
+
+  </table>
+<%= will_paginate @daily, :renderer => BootstrapPagination::Rails %>

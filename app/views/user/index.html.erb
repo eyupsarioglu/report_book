@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+<table class="#">
+  <tr class="#">
+    <th>Name</th>
+    <th>Surname</th>
+    <th>Role</th>
+    <th>University</th>
+    <th>&nbsp;</th>
+    <th>&nbsp;</th>
+  </tr>
+  <% @user_all.each do |us| %>
+      <tr class="#">
+        <td><%= us.name %></td>
+        <td><%= us.surname %></td>
+        <td><%= us.role %></td>
+        <td><%= us.university %></td>
+        <td>
+          <%= link_to("Show", user_path(us), :class => '#') %>
+        </td>
+        <td>
+          <%= link_to("Probations Show", probations_path(:us_id => us.id), :class => '#') %>
+        </td>
+      </tr>
+  <% end %>
+</table>
+<%= will_paginate @user_all, :renderer => BootstrapPagination::Rails %>
